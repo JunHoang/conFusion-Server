@@ -27,8 +27,18 @@ var usersRouter = require('./routes/users');
 var dishRouter = require('./routes/dishRouter');
 var promoRouter = require('./routes/promoRouter');
 var leaderRouter = require('./routes/leaderRouter');
+const { runInNewContext } = require('vm');
 
 var app = express();
+
+app.all('*', (req,res,next) => {
+  if(req.secure) {
+    return next();
+  }
+  else {
+    res.redirect(307, 'https://' + req.hostname + ':' + app.get('secPort') + req.url);
+  }
+});
 
 app.use(session({
   name: 'session-id',
