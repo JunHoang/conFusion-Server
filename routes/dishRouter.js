@@ -22,6 +22,7 @@ dishRouter.route('/')
                 res.json(dishes);
             }, (err) => next(err))
             .catch((err) => next(err));
+        
     })
     .post(cors.corsWithOptions,authenticate.verifyUser, authenticate.verifyAdmin, (req, res, next) => {
         Dishes.create(req.body)
