@@ -159,7 +159,7 @@ favoriteRouter.route('/:dishId')
     Favorites.findOne({user: req.user._id}, (err, favorite) => {
       if (err) return next(err);
 
-      var index = favorite.dishes.IndexOf(req.params.dishId);
+      var index = favorite.dishes.indexOf(req.params.dishId);
       if( index >= 0) {
         favorite.dishes.splice(index, 1);
         favorite.save()
