@@ -20,10 +20,15 @@ favoriteRouter.route('/')
     Favorites.find({})
       .populate('user')
       .populate('dishes')
-      .then((favdishes) => {
+      .then((favorites) => {
         res.statusCode = 200;
         res.setHeader('Content-Type', 'application/json');
-        res.json(favdishes);
+        console.log('favorites: ' + JSON.stringify(favorites));
+        if(!favorites){
+          res.json({favorites: []});
+        }
+        else
+          res.json(favorites);
       }, (err) => next(err))
       .catch((err) => next(err));
   })

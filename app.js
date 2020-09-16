@@ -18,6 +18,7 @@ const Favorites = require('./models/favorites');
 
 const url = config.mongoUrl;
 const connect = mongoose.connect(url);
+const cors = require('cors');
 
 connect.then((db)=> {
   console.log("Connected correctly to server");
@@ -53,6 +54,8 @@ app.use(session({
 
 app.use(passport.initialize());
 app.use(passport.session());
+
+app.use(cors());
 
 app.use('/', indexRouter);
 app.use('/users', usersRouter);
